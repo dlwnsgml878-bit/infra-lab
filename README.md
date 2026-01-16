@@ -1,8 +1,8 @@
 # Infra Lab
 
-## Overview
-This repository is for learning infrastructure fundamentals.
+## 개요
+이 저장소는 기본적인 인프라 학습을 위해 만들어 졌습니다.
 
-## What I Did Today
-- Created GitHub repository
-- Created README.md
+## 오늘 내가 한 일
+- GitHub repository 만들기
+-  README.md 만들기
