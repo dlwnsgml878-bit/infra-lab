@@ -1,7 +1,7 @@
 # Bastion SG (SSH from my IP)
 resource "aws_security_group" "bastion_sg" {
   name   = "bastion-sg"
-  vpc_id = aws_vpc.dev_vpc.id
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port   = 22
@@ -21,7 +21,7 @@ resource "aws_security_group" "bastion_sg" {
 # Private EC2 SG (SSH only from Bastion)
 resource "aws_security_group" "private_sg" {
   name   = "private-sg"
-  vpc_id = aws_vpc.dev_vpc.id
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port       = 22

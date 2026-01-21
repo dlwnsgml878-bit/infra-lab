@@ -1,35 +1,35 @@
-resource "aws_vpc" "dev_vpc" {
-  cidr_block = "10.0.0.0/16"
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
 
   tags = {
-    Name = "dev-vpc"
+    Name = "infra-lab-vpc"
   }
 }
 # Public Subnet
 resource "aws_subnet" "public_subnet" {
-  vpc_id                  = aws_vpc.dev_vpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "ap-northeast-2a"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_cidr
+  availability_zone       = var.az
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "dev-public-subnet"
+    Name = "infra-lab-public"
   }
 }
 
 # Private Subnet
 resource "aws_subnet" "private_subnet" {
-  vpc_id            = aws_vpc.dev_vpc.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = "ap-northeast-2a"
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_cidr
+  availability_zone = var.az
 
   tags = {
-    Name = "dev-private-subnet"
+    Name = "infra-lab-private"
   }
 }
 # Internet Gateway (IGW)
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.dev_vpc.id
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "dev-igw"
@@ -38,7 +38,7 @@ resource "aws_internet_gateway" "igw" {
 
 # Public Route Table
 resource "aws_route_table" "public_rt" {
-  vpc_id = aws_vpc.dev_vpc.id
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "dev-public-rt"
@@ -80,7 +80,7 @@ resource "aws_nat_gateway" "nat_gw" {
 
 # Private Route Table
 resource "aws_route_table" "private_rt" {
-  vpc_id = aws_vpc.dev_vpc.id
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "dev-private-rt"

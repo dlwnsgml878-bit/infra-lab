@@ -5,6 +5,7 @@
 *.tfstate.*
 crash.log
 crash.*.log
+terraform.tfvars
 
 # Local overrides
 *.tfvars

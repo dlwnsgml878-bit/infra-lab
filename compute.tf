@@ -15,13 +15,13 @@ data "aws_ami" "amazon_linux" {
 # Bastion (Public)
 resource "aws_instance" "bastion" {
   ami                         = data.aws_ami.amazon_linux.id
-  instance_type               = "t3.micro"
+  instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public_subnet.id
   vpc_security_group_ids      = [aws_security_group.bastion_sg.id]
   key_name                    = aws_key_pair.lab_key.key_name
   associate_public_ip_address = true
 
-  tags = { Name = "dev-bastion" }
+  tags = { Name = "infra-lab-bastiom" }
 }
 
 # Private EC2
